@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 // SPECIAL FEATURE 3:
-// Custom ThemeExtension lets us create our own custom colors
+// Custom ThemeExtension allows us to add our own theme colors
 // that are not already included in Flutter's ColorScheme.
 class AppColors extends ThemeExtension<AppColors> {
   final Color success;
@@ -62,7 +62,7 @@ class _RunMyAppState extends State<RunMyApp> {
   @override
   Widget build(BuildContext context) {
 
-    // Checks if dark mode is currently selected.
+    // Checks if the current selected theme is dark.
     bool isDark = _themeMode == ThemeMode.dark;
 
     return MaterialApp(
@@ -71,7 +71,7 @@ class _RunMyAppState extends State<RunMyApp> {
 
 
       // SPECIAL FEATURE 1:
-      // Material 3 generates a complete light color palette
+      // Material 3 generates a full light color scheme
       // using one seed color.
       theme: ThemeData(
         useMaterial3: true,
@@ -82,7 +82,7 @@ class _RunMyAppState extends State<RunMyApp> {
         ),
 
         // SPECIAL FEATURE 3:
-        // Adds our custom success color to the light theme.
+        // Adds our own success color to the light theme.
         extensions: const [
           AppColors(
             success: Colors.green,
@@ -92,7 +92,7 @@ class _RunMyAppState extends State<RunMyApp> {
 
 
       // SPECIAL FEATURE 1:
-      // Material 3 also generates a dark color palette
+      // Creates the dark Material 3 color scheme
       // using the same seed color.
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -103,7 +103,7 @@ class _RunMyAppState extends State<RunMyApp> {
         ),
 
         // SPECIAL FEATURE 3:
-        // Custom success color for dark mode.
+        // Different success color for dark mode.
         extensions: const [
           AppColors(
             success: Colors.lightGreen,
@@ -112,7 +112,7 @@ class _RunMyAppState extends State<RunMyApp> {
       ),
 
 
-      // Connects our current state to the app theme.
+      // Applies the currently selected theme.
       themeMode: _themeMode,
 
 
@@ -120,8 +120,8 @@ class _RunMyAppState extends State<RunMyApp> {
         builder: (context) {
 
           // SPECIAL FEATURE 4:
-          // AnimatedTheme makes the theme change smoothly
-          // instead of changing themed colors immediately.
+          // AnimatedTheme makes theme changes transition
+          // smoothly instead of changing immediately.
           return AnimatedTheme(
             data: Theme.of(context),
             duration: const Duration(milliseconds: 500),
@@ -133,34 +133,57 @@ class _RunMyAppState extends State<RunMyApp> {
               ),
 
 
+              // PART 1:
+              // The required layout uses a Column inside Center.
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
 
                   children: [
 
-                    // PART 2 - TASK 1:
-                    // AnimatedContainer automatically animates
-                    // when its properties change.
+                    // PART 1 + PART 2 TASK 1:
+                    // AnimatedContainer creates the required
+                    // circular container and animates its changes.
                     AnimatedContainer(
 
-                      // PART 2 - TASK 3:
-                      // Half-second animation duration.
+                      // PART 2 TASK 3:
+                      // Animation lasts for half a second.
                       duration:
                           const Duration(milliseconds: 500),
 
                       width: 200,
                       height: 200,
 
+                      // Adds spacing around the circle.
+                      margin: const EdgeInsets.all(20),
+
                       decoration: BoxDecoration(
 
-                        // Changes the circle color
-                        // depending on the current theme.
+                        // PART 1:
+                        // Grey in light mode and white in dark mode.
                         color: isDark
                             ? Colors.white
                             : Colors.grey,
 
+                        // Makes the container circular.
                         shape: BoxShape.circle,
+                      ),
+
+
+                      // PART 1:
+                      // Required text inside the circular container.
+                      child: const Center(
+                        child: Text(
+                          'Mobile App Development Testing',
+
+                          textAlign: TextAlign.center,
+
+                          // Only the font size is set here.
+                          // Text color is inherited from the theme.
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
 
@@ -169,10 +192,11 @@ class _RunMyAppState extends State<RunMyApp> {
 
 
                     // SPECIAL FEATURE 3:
-                    // Reads the custom success color
-                    // from our AppColors ThemeExtension.
+                    // Reads the custom success color from
+                    // the current AppColors ThemeExtension.
                     Text(
                       'Choose the Theme:',
+
                       style: TextStyle(
                         fontSize: 16,
 
@@ -186,17 +210,18 @@ class _RunMyAppState extends State<RunMyApp> {
                     const SizedBox(height: 10),
 
 
-                    // PART 2 - TASK 2 & TASK 4:
-                    // Contains the dynamic icon and theme switch.
+                    // PART 2 TASK 2 + TASK 4:
+                    // The Row keeps the icon and switch
+                    // next to each other.
                     Row(
                       mainAxisAlignment:
                           MainAxisAlignment.center,
 
                       children: [
 
-                        // PART 2 - TASK 4:
-                        // Shows the moon in dark mode
-                        // and the sun in light mode.
+                        // PART 2 TASK 4:
+                        // Shows a sun in light mode
+                        // and a moon in dark mode.
                         Icon(
                           isDark
                               ? Icons.nightlight_round
@@ -209,8 +234,9 @@ class _RunMyAppState extends State<RunMyApp> {
                         const SizedBox(width: 10),
 
 
-                        // PART 2 - TASK 2:
-                        // Switches between light and dark themes.
+                        // PART 2 TASK 2:
+                        // Switch changes between light
+                        // and dark themes.
                         Switch(
                           value: isDark,
 
